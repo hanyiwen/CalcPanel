@@ -13,6 +13,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -60,6 +61,7 @@ public class MainActivity extends BaseActivity {
     private DrawerLayout drawer;
     private ArrayList<View> drawerPageList;
     private Button indicatorButton;
+    private SwipeRefreshLayout swipeRefresh;
 
     final private String[] operator = {"DEL", "/", "*", "-", "+", ","};
     final private String[] vice = {"CLR", "()", "[]", "{}", "%", ""};
@@ -103,8 +105,25 @@ public class MainActivity extends BaseActivity {
         initOperator();
         initOperatorPro();
         initCR();
+        initSwipeRefresh();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
+    }
+
+    private void initSwipeRefresh() {
+        swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                editText.setText("");
+                editTextVice.setText("");
+                stateText.setText("");
+                stateTextVice.setText("");
+                out.setText("");
+                outVice.setText("");
+                swipeRefresh.setRefreshing(false);
+            }
+        });
     }
 
 
