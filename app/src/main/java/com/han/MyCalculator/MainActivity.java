@@ -129,32 +129,18 @@ public class MainActivity extends BaseActivity {
 
     private void initCR() {
         //初始化输入面板布局
-        if (screenOrient == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
-            //竖屏
-            //gridView分为多少列
-            int[] y = {1, 3, 1, 3, 3};
-            for (int i = 0; i < y.length; i++)
-                barView.get(i).setNumColumns(y[i]);
+        //竖屏
+        //gridView分为多少列
+        int[] y = {1, 3, 1, 3, 3};
+        for (int i = 0; i < y.length; i++)
+            barView.get(i).setNumColumns(y[i]);
 //                barView.get(i).setNumColumns(preferences.getInt("CRy" + screenOrient + ("" + i), y[i]));
 
-            int[] z = {6, 4, 6, 5, 5};
-            //适配器中需要计算 每个格子的高度设置为多少 需要设置好
-            for (int i = 0; i < z.length; i++)
-                barAdapter.get(i).setValue(z[i]);
+        int[] z = {6, 4, 6, 5, 5};
+        //适配器中需要计算 每个格子的高度设置为多少 需要设置好
+        for (int i = 0; i < z.length; i++)
+            barAdapter.get(i).setValue(z[i]);
 //            barAdapter.get(i).setValue(preferences.getInt("CRz" + screenOrient + ("" + i), z[i]));
-        } else {
-            //横屏
-            stateText.setTextSize(16);
-            out.setTextSize(24);
-
-            int[] y = {2, 4, 2, 5, 5};
-            for (int i = 0; i < y.length; i++)
-                barView.get(i).setNumColumns(preferences.getInt("CRy" + screenOrient + ("" + i), y[i]));
-
-            int[] z = {3, 3, 3, 3, 3};
-            for (int i = 0; i < z.length; i++)
-                barAdapter.get(i).setValue(preferences.getInt("CRz" + screenOrient + ("" + i), z[i]));
-        }
     }
 
     //判断当前屏幕水平还是竖直
