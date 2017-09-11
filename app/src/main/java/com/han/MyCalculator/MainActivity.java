@@ -68,8 +68,7 @@ public class MainActivity extends BaseActivity {
 
     final private String[][] function = {
             {"sqrt", "cbrt", "randInt", "log", "ln", "logab",
-                    "min", "max", "fact", "sin", "cos", "tan", "exp", "gcd", "lcm", "perm", "comb", "remn",
-                    "simp", "isPrime", "reStart"},
+                    "min", "max", "fact", "sin", "cos", "tan", "exp", "gcd", "lcm", "perm", "comb", "remn", "simp", "isPrime", "reStart"},
             {"π", "e", "F", "h", "ћ", "γ", "φ", "c", "N", "R", "k", "G", "Φ", "me", "mn", "mp"}};
 
     final private String[][] functionVice = {
@@ -83,7 +82,7 @@ public class MainActivity extends BaseActivity {
     final private String[] stringList = {"简单计算", "大数计算", "进制转换", "人民币写法", "24点计算"};
 
     private String[] numeric = {"7", "8", "9", "4", "5", "6", "1", "2", "3",
-            "·", "0", "=", "A", "B", "C", "D", "E", "F"};
+            "·", "0", "="};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,7 +124,6 @@ public class MainActivity extends BaseActivity {
             }
         });
     }
-
 
     private void initCR() {
         //初始化输入面板布局
@@ -182,7 +180,8 @@ public class MainActivity extends BaseActivity {
                     editText.setText("reStart()");
                     return;
                 }
-                ClipboardManager cmb = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipboardManager cmb =
+                        (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
                 cmb.setText(rootValue);
                 Snackbar.make(v, "已复制运算结果", Snackbar.LENGTH_SHORT).show();
             }
@@ -483,8 +482,7 @@ public class MainActivity extends BaseActivity {
         if (screenOrient == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
 //            numeric = new String[]{"7", "8", "9", "A", "4", "5", "6", "B", "1", "2", "3", "C", "·", "0", "=", "D",
 //                    "⑵", "⑶", "⑷", "E", "⑸", "⑹", "⑺", "F", "⑻", "⑼", "⑽", "⑾", "⑿", "⒀", "⒁", "⒂", "⒃"};
-            numeric = new String[]{"7", "8", "9", "A", "4", "5", "6", "B", "1", "2", "3", "C", "·", "0", "=", "D",
-                    "E", "F"};
+            numeric = new String[]{"7", "8", "9", "4", "5", "6", "1", "2", "3", "·", "0", "="};
         GridView numericBar = (GridView) findViewById(R.id.bar_numeric);
         barView.add(numericBar);
         GridViewAdapter numericAdapter = new GridViewAdapter(this, numericBar, Arrays.asList(numeric), R.layout.button_numeric, new View.OnClickListener() {

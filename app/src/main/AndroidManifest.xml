@@ -22,7 +22,6 @@
             android:name="com.han.MyCalculator.ResultsActivity"
             android:label="运算结果" />
         <activity
-
             android:name="com.han.MyCalculator.CapitalMoneyActivity"
             android:label="人民币写法"
             android:screenOrientation="portrait" />
