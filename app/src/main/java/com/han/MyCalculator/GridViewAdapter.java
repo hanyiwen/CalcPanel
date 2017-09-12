@@ -39,7 +39,6 @@ public class GridViewAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-
         return text.get(position);
     }
 
@@ -50,7 +49,6 @@ public class GridViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
         convertView = LayoutInflater.from(context).inflate(layoutId, parent, false);
         convertView.setOnClickListener(onClickListener);
         convertView.setOnLongClickListener(onLongClickListener);

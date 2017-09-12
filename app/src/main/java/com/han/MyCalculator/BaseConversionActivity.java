@@ -99,7 +99,8 @@ public class BaseConversionActivity extends BaseActivity {
         textOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ClipboardManager cmb = (ClipboardManager) v.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipboardManager cmb =
+                        (ClipboardManager) v.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
                 cmb.setText(textOut.getText());
                 Snackbar.make(v, "已复制转换结果", Snackbar.LENGTH_SHORT).show();
             }

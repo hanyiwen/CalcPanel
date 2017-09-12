@@ -554,6 +554,7 @@ public class ExpressionHandlerHan {
             }
 
             //验证括号是否能够成对  这一步检查过后 由中后缀表达式的计算中判断表达式正确性
+            //这里只是检查数目是否对上了
             int leftBracketCount = 0;
             int rightBracketCount = 0;
             for (int i = 0; i < arrayList.size(); i++) {

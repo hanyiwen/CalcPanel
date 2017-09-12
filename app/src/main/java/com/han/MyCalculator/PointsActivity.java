@@ -29,6 +29,7 @@ public class PointsActivity extends BaseActivity {
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
     private ArrayList<String> expressions;
+    private ArrayList<String> hintList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +46,10 @@ public class PointsActivity extends BaseActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-        expressions = new ArrayList<>();
-        expressions.add("请输入要计算的四张牌。");
-        recyclerViewAdapter = new RecyclerViewAdapter(this, expressions);
+        hintList.add("请输入要计算的四张牌。");
+//        expressions = new ArrayList<>();
+//        expressions.add("请输入要计算的四张牌。");
+        recyclerViewAdapter = new RecyclerViewAdapter(this, hintList);
         recyclerView.setAdapter(recyclerViewAdapter);
     }
 
@@ -85,6 +87,8 @@ public class PointsActivity extends BaseActivity {
 
                 if (str.equals("CLR")) {
                     editText.setText(null);
+                    recyclerViewAdapter.setList(hintList);
+                    recyclerViewAdapter.notifyDataSetChanged();
                     return;
                 }
 

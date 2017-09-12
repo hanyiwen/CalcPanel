@@ -38,8 +38,6 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-import static com.han.ExpressionHandler.Constants.hintsMap;
-
 /**
  *
  */
@@ -380,7 +378,7 @@ public class MainActivity extends BaseActivity {
                     @Override
                     public boolean onLongClick(View v) {
                         String funcString = ((TextView) v.findViewById(R.id.text_item)).getText().toString();
-                        String hintString = hintsMap.get(funcString);
+                        String hintString = Constants.hintsMap.get(funcString);
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
                         builder.setTitle("函数输入格式说明");
                         builder.setMessage(hintString);
@@ -498,7 +496,8 @@ public class MainActivity extends BaseActivity {
                         Callable<String> callable = new Callable<String>() {
                             @Override
                             public String call() throws Exception {
-                                final String value = ExpressionHandlerHan.calculateFather(editText.getText().toString());
+                                final String value =
+                                        ExpressionHandlerHan.calculateFather(editText.getText().toString());
                                 return value;
                             }
                         };
@@ -649,8 +648,8 @@ public class MainActivity extends BaseActivity {
         }
         AutofitHelper.create(editTextVice).setMinTextSize(28);//控制editText 使其美观
         //Vice不获得焦点
-        editTextVice.setFocusable(true);
-        editTextVice.setFocusableInTouchMode(true);
+//        editTextVice.setFocusable(true);
+//        editTextVice.setFocusableInTouchMode(true);
 
         editTextVice.addTextChangedListener(new TextWatcher() {
             @Override

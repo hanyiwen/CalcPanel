@@ -4,6 +4,8 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.Snackbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,17 +13,33 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+
 public class CapitalMoneyActivity extends BaseActivity {
 
+
     private TextView textOut;
+    private Handler handler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+            switch (msg.what) {
+                case 100:
+                    textOut.setText((String) msg.obj);
+                    break;
+                default:
+                    break;
+            }
+            return false;
+        }
+    });
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_capital_money);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        initTextOut();
         initTextIn();
+        initTextOut();
     }
 
     private void initTextOut() {
@@ -30,7 +48,8 @@ public class CapitalMoneyActivity extends BaseActivity {
         textOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ClipboardManager cmb = (ClipboardManager) v.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipboardManager cmb =
+                        (ClipboardManager) v.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
                 cmb.setText(textOut.getText());
                 Snackbar.make(v, "已复制转换结果", Snackbar.LENGTH_SHORT).show();
             }
@@ -48,7 +67,7 @@ public class CapitalMoneyActivity extends BaseActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String str = s.toString();
+                final String str = s.toString();
                 if (s.length() == 0 || str.equals(".")) {
                     textOut.setText("···");
                     return;
@@ -60,7 +79,33 @@ public class CapitalMoneyActivity extends BaseActivity {
                         return;
                     }
                 }
-                textOut.setText(format(s.toString()));
+                //这里以后要换成Callable
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        String value = format(str);
+                        Message message = new Message();
+                        message.what = 100;
+                        message.obj = value;
+                        handler.sendMessage(message);
+                    }
+                }).start();
+//                String value = "";
+//                Callable<String> callable = new Callable<String>() {
+//                    @Override
+//                    public String call() throws Exception {
+//                        return format(str);
+//                    }
+//                };
+//                Future<String> future = Constants.cachedThreadPool.submit(callable);
+//                try {
+//                    value = future.get();
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                } catch (ExecutionException e) {
+//                    e.printStackTrace();
+//                }
+//                textOut.setText(format(s.toString()));
             }
 
             @Override
@@ -84,7 +129,13 @@ public class CapitalMoneyActivity extends BaseActivity {
         //根据小数点分割 得到两边的位数
         String[] moneyStrings = money.split("\\.");
         String integerPart = moneyStrings[0];
-        long integer = Long.parseLong(integerPart);
+
+        long integer = 0;
+        try {
+            integer = Long.parseLong(integerPart);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
 
         String integerResult = parseIntegerPart(integer);
 

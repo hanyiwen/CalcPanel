@@ -24,7 +24,7 @@ public class Calculate24Points {
         ArrayList<Double> pokers = new ArrayList<>();
         ArrayList<String> expression = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
-            int poker = Constants.pokersMap.get(pokerStrings[i]);
+            int poker = Constants.pokersMap.get(pokerStrings[i]);//取出牌面对应的权值
             pokers.add((double) poker);
             expression.add(pokerStrings[i]);
         }
@@ -40,6 +40,7 @@ public class Calculate24Points {
 
         return expressionsList;
     }
+
 
     private static void isTwentyFourPoint(ArrayList<Double> pokers, ArrayList<String> expression) {
         if (pokers.size() < 2) {
